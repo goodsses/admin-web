@@ -4,7 +4,7 @@
             <div class="ms-title">后台管理系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
-                    <el-input v-model="param.username" placeholder="username">
+                    <el-input v-model="param.userName" placeholder="username">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
@@ -21,22 +21,23 @@
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm()">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <p class="login-tips">Tips : 用户名和密码不要忘记哦。</p>
             </el-form>
         </div>
     </div>
 </template>
 
 <script>
+import { login } from '../../api/index';
 export default {
     data: function() {
         return {
             param: {
-                username: 'admin',
-                password: '123123',
+                userName: 'admin',
+                password: 'admin',
             },
             rules: {
-                username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                userName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
                 password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
             },
         };
@@ -45,9 +46,16 @@ export default {
         submitForm() {
             this.$refs.login.validate(valid => {
                 if (valid) {
-                    this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/');
+                    login(this.param).then(response => {
+                        if (response.success) {
+                            this.data = response.data
+                            this.$message.success('登录成功');
+                            localStorage.setItem('ms_username', this.data.userName);
+                            this.$router.push('/');
+                        } else {
+                            this.$message.error('请输入正确的账号和密码');
+                        }
+                    })
                 } else {
                     this.$message.error('请输入账号和密码');
                     console.log('error submit!!');

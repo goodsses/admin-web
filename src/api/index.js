@@ -1,9 +1,17 @@
 import request from '../utils/request';
 
-export const fetchData = query => {
+export const dealersFindAll = query => {
     return request({
-        url: './table.json',
-        method: 'get',
+        url: 'dealers/findAll',
+        method: 'post',
+        params: query
+    });
+};
+
+export const login = query => {
+    return request({
+        url: 'login/login',
+        method: 'post',
         params: query
     });
 };
