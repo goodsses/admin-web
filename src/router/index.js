@@ -25,19 +25,19 @@ export default new Router({
                     meta: { title: '经销商管理' }
                 },
                 {
-                    path: '/table',
-                    component: () => import(/* webpackChunkName: "table" */ '../components/page/BaseTable.vue'),
-                    meta: { title: '基础表格' }
+                    path: '/models',
+                    component: () => import(/* webpackChunkName: "table" */ '../components/page/Models.vue'),
+                    meta: { title: '车型管理' }
                 },
                 {
-                    path: '/tabs',
-                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
-                    meta: { title: 'tab选项卡' }
+                    path: '/questions',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Qusetions.vue'),
+                    meta: { title: '题目管理' }
                 },
                 {
-                    path: '/form',
-                    component: () => import(/* webpackChunkName: "form" */ '../components/page/BaseForm.vue'),
-                    meta: { title: '基本表单' }
+                    path: '/users',
+                    component: () => import(/* webpackChunkName: "form" */ '../components/page/Users.vue'),
+                    meta: { title: '客户管理' }
                 },
                 {
                     // 图片上传组件

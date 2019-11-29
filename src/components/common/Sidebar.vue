@@ -68,18 +68,18 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-cascades',
-                    index: 'table',
-                    title: '基础表格'
+                    index: 'models',
+                    title: '车型管理'
                 },
                 {
                     icon: 'el-icon-lx-copy',
-                    index: 'tabs',
-                    title: 'tab选项卡'
+                    index: 'questions',
+                    title: '题目管理'
                 },
                 {
                     icon: 'el-icon-lx-calendar',
-                    index: 'form',
-                    title: '基本表单'
+                    index: 'users',
+                    title: '客户管理'
                 },
                 {
                     icon: 'el-icon-lx-calendar',
