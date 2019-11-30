@@ -16,12 +16,15 @@
                         type="primary"
                         icon="el-icon-delete"
                         class="handle-del mr10"
+                        style="margin-left: 20px !important;"
                         @click="delAllSelection"
                 >批量删除</el-button>
+                <el-button type="primary" icon="el-icon-circle-plus-outline" @click="addDealers">添加经销商</el-button>
                 <el-checkbox v-model="visible" style="margin-left: 30px">主键</el-checkbox>
             </div>
             <el-table
                     :data="tableData"
+                    v-loading="loading"
                     border
                     class="table"
                     ref="multipleTable"
@@ -94,12 +97,18 @@
 
         <!-- 编辑弹出框 -->
         <el-dialog title="编辑" :visible.sync="editVisible" width="30%">
-            <el-form ref="form" :model="form" label-width="70px">
-                <el-form-item label="用户名">
-                    <el-input v-model="form.name"></el-input>
+            <el-form ref="form" :model="form" label-width="100px">
+                <el-form-item label="编码">
+                    <el-input v-model="form.code"></el-input>
                 </el-form-item>
-                <el-form-item label="地址">
-                    <el-input v-model="form.address"></el-input>
+                <el-form-item label="城市">
+                    <el-input v-model="form.city"></el-input>
+                </el-form-item>
+                <el-form-item label="经销商名称">
+                    <el-input v-model="form.jxsname"></el-input>
+                </el-form-item>
+                <el-form-item label="经销商简称">
+                    <el-input v-model="form.jxsjc"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -111,11 +120,12 @@
 </template>
 
 <script>
-    import { dealersFindAll } from '../../api/index';
+    import { dealersFindAll, deleteDealers, saveDealers } from '../../api/index';
     export default {
         name: 'Dealers',
         data() {
             return {
+                loading: false,
                 visible: false,
                 query: {
                     city: '',
@@ -139,10 +149,12 @@
         methods: {
             // 获取 easy-mock 的模拟数据
             getData() {
+                this.loading = true
                 dealersFindAll(this.query).then(res => {
                     if (res.success) {
                         this.tableData = res.items;
                         this.pageTotal = res.total;
+                        this.loading = false
                     }
                 });
             },
@@ -158,8 +170,14 @@
                     type: 'warning'
                 })
                     .then(() => {
-                        this.$message.success('删除成功');
-                        this.tableData.splice(index, 1);
+                        const param = {}
+                        param.ids = row.id + ','
+                        deleteDealers(param).then(res => {
+                            if (res.success) {
+                                this.$message.success('删除成功');
+                                this.getData()
+                            }
+                        });
                     })
                     .catch(() => {});
             },
@@ -168,31 +186,54 @@
                 this.multipleSelection = val;
             },
             delAllSelection() {
-                const length = this.multipleSelection.length;
-                let str = '';
-                this.delList = this.delList.concat(this.multipleSelection);
-                for (let i = 0; i < length; i++) {
-                    str += this.multipleSelection[i].name + ' ';
-                }
-                this.$message.error(`删除了${str}`);
-                this.multipleSelection = [];
+                this.$confirm('确定要删除吗？', '提示', {
+                    type: 'warning'
+                })
+                    .then(() => {
+                        const length = this.multipleSelection.length;
+                        this.delList = this.delList.concat(this.multipleSelection);
+                        let ids = '';
+                        const param = {}
+                        for (let i = 0; i < length; i++) {
+                            ids += this.delList[i].id + ','
+                        }
+                        param.ids = ids
+                        deleteDealers(param).then(res => {
+                            if (res.success) {
+                                this.$message.success(`删除成功`);
+                                this.getData()
+                            }
+                        });
+                        this.multipleSelection = [];
+                    })
+                    .catch(() => {});
             },
             // 编辑操作
             handleEdit(index, row) {
                 this.idx = index;
-                this.form = row;
+                this.form = Object.assign({}, row);
                 this.editVisible = true;
             },
             // 保存编辑
             saveEdit() {
+                const param = Object.assign({}, this.form);
                 this.editVisible = false;
-                this.$message.success(`修改第 ${this.idx + 1} 行成功`);
-                this.$set(this.tableData, this.idx, this.form);
+                saveDealers(param).then(res => {
+                    if (res.success) {
+                        this.$message.success(`编辑成功`);
+                        this.getData()
+                    }
+                });
             },
             // 分页导航
             handlePageChange(val) {
                 this.$set(this.query, 'page', val);
                 this.getData();
+            },
+            //添加
+            addDealers() {
+                this.form = {};
+                this.editVisible = true;
             }
         }
     };

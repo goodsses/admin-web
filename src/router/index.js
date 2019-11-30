@@ -40,6 +40,11 @@ export default new Router({
                     meta: { title: '客户管理' }
                 },
                 {
+                    path: '/tabs',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
+                    meta: { title: 'tab选项卡' }
+                },
+                {
                     // 图片上传组件
                     path: '/upload',
                     component: () => import(/* webpackChunkName: "upload" */ '../components/page/Upload.vue'),
@@ -68,3 +73,4 @@ export default new Router({
         }
     ]
 });
+

@@ -8,6 +8,21 @@ export const dealersFindAll = query => {
     });
 };
 
+export const deleteDealers = query => {
+    return request({
+        url: 'dealers/deleteDealers',
+        method: 'post',
+        params: query
+    });
+};
+
+export const saveDealers = query => {
+    return request({
+        url: 'dealers/saveDealers',
+        method: 'post',
+        params: query
+    });
+};
 
 export const modelsFindAll = query => {
     return request({
@@ -17,12 +32,46 @@ export const modelsFindAll = query => {
     });
 };
 
+export const deleteModels = query => {
+    return request({
+        url: 'models/deleteModels',
+        method: 'post',
+        params: query
+    });
+};
+
+export const saveModels = query => {
+    return request({
+        url: 'models/saveModels',
+        method: 'post',
+        params: query
+    });
+};
 
 export const questionsFindAll = query => {
     return request({
         url: 'questionBank/findAll',
         method: 'post',
         params: query
+    });
+};
+
+export const deleteQuestion = query => {
+    return request({
+        url: 'questionBank/deleteQuestion',
+        method: 'post',
+        params: query
+    });
+};
+
+export const saveQuestion = query => {
+    return request({
+        url: 'questionBank/saveQuestion',
+        method: 'post',
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        },
+        data: query
     });
 };
 
@@ -41,3 +90,5 @@ export const login = query => {
         params: query
     });
 };
+
+
