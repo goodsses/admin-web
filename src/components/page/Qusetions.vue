@@ -284,12 +284,12 @@
                 this.fileList = []
                 this.fileList1 = []
                 this.form = Object.assign({}, row);
-                let obja = new Object();
-                obja.url = this.form.optionaimg;
-                this.fileList.push(obja);
-                let objb = new Object();
-                objb.url = this.form.optionbimg;
-                this.fileList1.push(objb);
+                // let obja = new Object();
+                // obja.url = this.form.optionaimg;
+                // this.fileList.push(obja);
+                // let objb = new Object();
+                // objb.url = this.form.optionbimg;
+                // this.fileList1.push(objb);
                 this.editVisible = true;
             },
             // 保存编辑
@@ -329,6 +329,7 @@
             //添加
             addDealers() {
                 this.form = {};
+                this.form.answer = 'A'
                 this.fileList = [];
                 this.fileList1 = [];
                 this.editVisible = true;
