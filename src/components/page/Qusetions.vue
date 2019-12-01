@@ -402,6 +402,8 @@
             },
             beforeUpload(file) {
                 var that = this;
+
+
                 //文件类型
                 var fileName = file.name.substring(file.name.lastIndexOf('.') + 1);
                 var flag = true;

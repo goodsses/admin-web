@@ -91,4 +91,10 @@ export const login = query => {
     });
 };
 
+export const exportInfo = query => {
+    return request({
+        url: 'user/exportInfo',
+        method: 'post'
+    });
+};
 

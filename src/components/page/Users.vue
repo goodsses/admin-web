@@ -12,6 +12,7 @@
                 <el-input v-model="query.name" placeholder="姓名" class="handle-input mr10"/>
                 <el-input v-model="query.mobile" placeholder="手机号" class="handle-input mr10"/>
                 <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                <el-button type="primary" icon="el-icon-folder" @click="handleExport">导出用户信息</el-button>
                 <el-checkbox v-model="visible" style="margin-left: 30px">主键</el-checkbox>
             </div>
             <el-table
@@ -21,7 +22,6 @@
                     class="table"
                     ref="multipleTable"
                     header-cell-class-name="table-header"
-                    @selection-change="handleSelectionChange"
             >
                 <el-table-column v-if="visible" prop="id" label="ID" width="55" align="center">
                     <template slot-scope="scope">
@@ -84,7 +84,8 @@
 </template>
 
 <script>
-    import { usersFindAll } from '../../api/index';
+    import { usersFindAll, exportInfo } from '../../api/index';
+    import request from '../../utils/request'
     export default {
         name: 'Dealers',
         data() {
@@ -131,6 +132,10 @@
             handlePageChange(val) {
                 this.$set(this.query, 'page', val);
                 this.getData();
+            },
+            handleExport() {
+                console.info(service)
+                window.open("http://39.98.148.135:8081/sh/user/exportInfo")
             }
         }
     };
