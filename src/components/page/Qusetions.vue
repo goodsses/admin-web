@@ -143,7 +143,7 @@
                             :on-exceed="handleExceed"
                             :before-upload="beforeUpload1"
                             :on-preview="handlePictureCardPreview"
-                            :on-remove="handleRemove"
+                            :on-remove="handleRemove1"
                             :file-list="fileList1"
                             :auto-upload="false">
                         <i class="el-icon-plus"></i>
@@ -281,7 +281,15 @@
             // 编辑操作
             handleEdit(index, row) {
                 this.idx = index;
-                this.form = row;
+                this.fileList = []
+                this.fileList1 = []
+                this.form = Object.assign({}, row);
+                let obja = new Object();
+                obja.url = this.form.optionaimg;
+                this.fileList.push(obja);
+                let objb = new Object();
+                objb.url = this.form.optionbimg;
+                this.fileList1.push(objb);
                 this.editVisible = true;
             },
             // 保存编辑
@@ -321,6 +329,8 @@
             //添加
             addDealers() {
                 this.form = {};
+                this.fileList = [];
+                this.fileList1 = [];
                 this.editVisible = true;
             },
 
@@ -328,7 +338,10 @@
                 this.$message.warning('只能选择1个文件!');
             },
             handleRemove(file, fileList) {
-                //console.log(file,fileList);
+                this.fileList = []
+            },
+            handleRemove1(file, fileList) {
+                this.fileList1 = []
             },
             beforeUpload1(file) {
                 var that = this;
@@ -427,6 +440,12 @@
                 fd.append('type', '1');
                 fd.append('bean', JSON.stringify(param));
                 saveQuestion(fd).then(res => {
+                    if (res.success) {
+                        that.downloadLoading.close()
+                        this.$message.success(`编辑成功`);
+                        this.editVisible = false;
+                        this.getData()
+                    }
                 });
                 return false;
             },

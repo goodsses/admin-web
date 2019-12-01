@@ -82,11 +82,6 @@ export default {
                     title: '客户管理'
                 },
                 {
-                    icon: 'el-icon-lx-calendar',
-                    index: 'upload',
-                    title: '文件上传'
-                },
-                {
                     icon: 'el-icon-lx-redpacket_fill',
                     index: '/donate',
                     title: '帮助'
