@@ -135,7 +135,7 @@
             },
             handleExport() {
                 console.info(service)
-                window.open("http://39.98.148.135:8081/sh/user/exportInfo")
+                window.open("http://39.98.148.135:80/sh/user/exportInfo")
             }
         }
     };
