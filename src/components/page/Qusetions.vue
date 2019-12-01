@@ -140,7 +140,7 @@
                             :accept="acceptFileType"
                             :limit="1"
                             list-type="picture-card"
-                            :on-exceed="handleExceed"
+                            :on-exceed="handleExceed1"
                             :before-upload="beforeUpload1"
                             :on-preview="handlePictureCardPreview"
                             :on-remove="handleRemove1"
@@ -333,8 +333,10 @@
                 this.fileList1 = [];
                 this.editVisible = true;
             },
-
             handleExceed(files, fileList) {
+                this.$message.warning('只能选择1个文件!');
+            },
+            handleExceed1(files, fileList1) {
                 this.$message.warning('只能选择1个文件!');
             },
             handleRemove(file, fileList) {
