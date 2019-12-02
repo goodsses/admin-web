@@ -85,7 +85,6 @@
 
 <script>
     import { usersFindAll, exportInfo } from '../../api/index';
-    import request from '../../utils/request'
     export default {
         name: 'Dealers',
         data() {
@@ -134,8 +133,7 @@
                 this.getData();
             },
             handleExport() {
-                console.info(service)
-                window.open("http://39.98.148.135:80/sh/user/exportInfo")
+                window.open("http://39.98.148.135/sh/user/exportInfo")
             }
         }
     };

@@ -80,11 +80,6 @@ export default {
                     icon: 'el-icon-lx-calendar',
                     index: 'users',
                     title: '客户管理'
-                },
-                {
-                    icon: 'el-icon-lx-redpacket_fill',
-                    index: '/donate',
-                    title: '帮助'
                 }
             ]
         };

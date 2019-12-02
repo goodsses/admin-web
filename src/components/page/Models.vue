@@ -95,7 +95,7 @@
 </template>
 
 <script>
-    import { saveModels, modelsFindAll, deleteModels } from '../../api/index';
+    import { saveModels, modelsFindAll, deleteModels, deleteDealers } from '../../api/index';
     export default {
         name: 'Dealers',
         data() {
@@ -144,9 +144,14 @@
                     type: 'warning'
                 })
                     .then(() => {
-
-                        this.$message.success('删除成功');
-                        this.tableData.splice(index, 1);
+                        const param = {}
+                        param.ids = row.id + ','
+                        deleteModels(param).then(res => {
+                            if (res.success) {
+                                this.$message.success('删除成功');
+                                this.getData()
+                            }
+                        });
                     })
                     .catch(() => {});
             },
